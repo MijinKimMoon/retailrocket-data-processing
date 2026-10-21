@@ -8,17 +8,17 @@
 import pandas as pd
 
 events_clean = pd.read_csv(
-    "../data/events_clean.csv",
+    "data/events_clean.csv",
     parse_dates=["datetime"]
 )
 
 category_changes = pd.read_csv(
-    "../data/category_changes.csv",
+    "data/category_changes.csv",
     parse_dates=["datetime"]
 )
 
 available_changes = pd.read_csv(
-    "../data/available_changes.csv",
+    "data/available_changes.csv",
     parse_dates=["datetime"]
 )
 
@@ -164,7 +164,7 @@ events_analysis.groupby("event")["categoryid"].agg(
 
 # %%
 events_analysis.to_csv(
-    "../data/events_analysis.csv",
+    "data/events_analysis.csv",
     index=False
 )
 
@@ -221,7 +221,7 @@ events_final.isna().sum()
 
 # %%
 events_final.to_csv(
-    "../data/events_final.csv",
+    "data/events_final.csv",
     index=False
 )
 
