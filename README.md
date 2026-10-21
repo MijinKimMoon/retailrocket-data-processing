@@ -12,7 +12,7 @@ Python·Pandas와 MySQL을 사용해 RetailRocket 이커머스 이벤트와 상�
 | `item_properties_part1.csv` + `item_properties_part2.csv` | 20,275,902 | 시점별 상품 속성(`categoryid`, `available` 등) |
 | `category_tree.csv` | 1,669 | 카테고리 계층 정보 |
 
-- **Tools:** Python, Pandas, MySQL, SQL, Jupyter Notebook
+- **Tools:** Python, Pandas, MySQL, SQL
 - 원천 데이터: [RetailRocket recommender system dataset (Kaggle)](https://www.kaggle.com/datasets/retailrocket/ecommerce-dataset). 원천 데이터 파일은 이 저장소에 포함하지 않습니다.
 
 ## Processing flow
