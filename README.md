@@ -57,8 +57,8 @@ retailrocket-data-processing/
     └── category_tree.csv
 ```
 
-2. `01_preprocessing.ipynb`를 실행해 `data/events_clean.csv`, `data/category_changes.csv`, `data/available_changes.csv`를 생성합니다.
-3. 이어서 `02_temporal_matching.ipynb`를 실행해 `data/events_final.csv`를 생성합니다.
+2. 저장소 루트에서 `python 01_preprocessing.py`를 실행해 `data/events_clean.csv`, `data/category_changes.csv`, `data/available_changes.csv`를 생성합니다.
+3. 이어서 `python 02_temporal_matching.py`를 실행해 `data/events_final.csv`를 생성합니다.
 4. `sql/retailrocket_analysis.sql`의 `LOAD DATA LOCAL INFILE` 파일 경로를 **사용 중인 PC의 실제 CSV 절대경로**로 바꾸고, MySQL의 `local_infile` 설정과 파일 접근 권한을 확인한 뒤 적재 부분을 실행합니다.
 5. 이어지는 SQL 쿼리는 관심 분석별로 **선택 실행**합니다. 전체 파일을 배포 스크립트처럼 무조건 한 번에 실행하는 용도로 작성된 코드는 아닙니다.
 
