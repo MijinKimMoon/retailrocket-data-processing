@@ -33,22 +33,22 @@ Python·Pandas와 MySQL을 사용해 RetailRocket 이커머스 이벤트와 상�
 retailrocket-data-processing/
 ├── README.md
 ├── .gitignore
-├── notebooks/
-│   ├── 01_preprocessing.ipynb       # 데이터 탐색, 중복·품질 검증, 속성 변경 이력 생성
-│   └── 02_temporal_matching.ipynb   # 시점 매칭, 미매칭 검증, 최종 CSV 생성
+├── 01_preprocessing.py       # 데이터 탐색, 중복·품질 검증, 속성 변경 이력 생성
+├── 02_temporal_matching.py  # 시점 매칭, 미매칭 검증, 최종 CSV 생성
 └── sql/
-    └── retailrocket_analysis.sql   # events_final 생성·적재 및 탐색 SQL
+    └── retailrocket_analysis.sql  # events_final 생성·적재 및 탐색 SQL
 ```
 
 ## Running locally
 
-**Requirements:** Python, Jupyter, Pandas, MySQL 8.x (SQL 쿼리 문법에 따라 버전 호환성 점검 필요), 원천 CSV를 처리할 수 있는 충분한 메모리와 디스크 공간.
+**Requirements:** Python, Pandas, MySQL 8.x (SQL 쿼리 문법에 따라 버전 호환성 점검 필요), 원천 CSV를 처리할 수 있는 충분한 메모리와 디스크 공간.
 
 1. Kaggle 원천 데이터를 내려받고 저장소 루트의 `data/` 폴더에 다음 파일을 준비합니다.
 
 ```text
 retailrocket-data-processing/
-├── notebooks/
+├── 01_preprocessing.py
+├── 02_temporal_matching.py
 ├── sql/
 └── data/                     # .gitignore로 업로드 제외
     ├── events.csv
@@ -57,12 +57,12 @@ retailrocket-data-processing/
     └── category_tree.csv
 ```
 
-2. `notebooks/01_preprocessing.ipynb`를 실행해 `data/events_clean.csv`, `data/category_changes.csv`, `data/available_changes.csv`를 생성합니다.
-3. 이어서 `notebooks/02_temporal_matching.ipynb`를 실행해 `data/events_final.csv`를 생성합니다.
+2. `01_preprocessing.ipynb`를 실행해 `data/events_clean.csv`, `data/category_changes.csv`, `data/available_changes.csv`를 생성합니다.
+3. 이어서 `02_temporal_matching.ipynb`를 실행해 `data/events_final.csv`를 생성합니다.
 4. `sql/retailrocket_analysis.sql`의 `LOAD DATA LOCAL INFILE` 파일 경로를 **사용 중인 PC의 실제 CSV 절대경로**로 바꾸고, MySQL의 `local_infile` 설정과 파일 접근 권한을 확인한 뒤 적재 부분을 실행합니다.
 5. 이어지는 SQL 쿼리는 관심 분석별로 **선택 실행**합니다. 전체 파일을 배포 스크립트처럼 무조건 한 번에 실행하는 용도로 작성된 코드는 아닙니다.
 
-> **재현성 안내:** 이 파일들은 기존 탐색 노트북의 **코드 셀과 순서를 보존**하고 저장된 출력만 삭제한 공개용 사본입니다. 새 환경에서 처음부터 끝까지 재실행하는 테스트는 수행하지 않았습니다. 일부 셀은 탐색용이며, 대용량 데이터 처리로 실행에 시간이 걸리거나 환경에 따라 추가 조정이 필요할 수 있습니다. `data/` 경로는 **노트북 폴더를 작업 디렉터리로 실행하는 경우**를 기준으로 합니다.
+> **재현성 안내:** Python 스크립트는 기존 탐색 노트북의 코드 셀과 순서를 보존해 변환한 공개용 사본입니다. 문법 검사는 했지만, 새 환경에서 처음부터 끝까지 실행하는 검증은 하지 않았습니다. 대용량 데이터 처리에는 시간이 걸릴 수 있고 환경에 따라 추가 조정이 필요할 수 있습니다. 스크립트의 상대 경로는 저장소 루트에서 실행하는 기준으로 확인해 주세요.
 
 ## Limitations
 
@@ -71,5 +71,5 @@ retailrocket-data-processing/
 - 퍼널 분석의 결과는 ‘최초 이벤트 시점’ 기준인지 ‘조건을 만족하는 이벤트 순서 존재’ 기준인지에 따라 달라지므로 SQL 파일에 두 접근을 남겼습니다.
 - 카테고리 변경: 카테고리 정보가 연결된 조회 기준 사용자·상품 조합 1,611,479개 중 442개(0.0274%)에서 복수 카테고리가 확인되었습니다. 따라서 카테고리별 분석에서 동일 조합이 여러 카테고리에 포함될 가능성이 있습니다.
 - 반복 조회 분석: 구매 조합은 최초 구매 이전까지, 비구매 조합은 전체 분석 기간의 조회 횟수를 집계했습니다. 관찰 기간의 차이가 구매 전환율 비교에 영향을 줄 수 있으며, 분석 결과는 인과관계를 의미하지 않습니다.
-- **자동화된 재실행, 테스트, 성능 튜닝, 모니터링 구축은 이 저장소가 입증하는 범위에 포함하지 않습니다.**
+- 정기 스케줄링이나 오케스트레이션, 자동화 테스트, 성능 튜닝, 모니터링은 구축하지 않았습니다.
 
