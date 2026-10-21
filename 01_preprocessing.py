@@ -25,15 +25,15 @@ pd.set_option("display.max_columns", None)
 pd.set_option("display.max_colwidth", None)
 pd.set_option("display.width", None)
 
-events = pd.read_csv("../data/events.csv")
+events = pd.read_csv("data/events.csv")
 print(events.head())
 
 # %% [markdown]
 # # item_properties_part1.csv, item_properties_part2.csv 파일 합치기
 
 # %%
-item_properties_1 = pd.read_csv("../data/item_properties_part1.csv")
-item_properties_2 = pd.read_csv("../data/item_properties_part2.csv")
+item_properties_1 = pd.read_csv("data/item_properties_part1.csv")
+item_properties_2 = pd.read_csv("data/item_properties_part2.csv")
 
 print(item_properties_1.shape)
 print(item_properties_2.shape)
@@ -110,7 +110,7 @@ item_properties["datetime"].min(), item_properties["datetime"].max()
 # ## 중복값 확인
 
 # %%
-category_tree = pd.read_csv("../data/category_tree.csv")
+category_tree = pd.read_csv("data/category_tree.csv")
 
 print("events:", events.duplicated().sum())
 print("item_properties:", item_properties.duplicated().sum())
@@ -274,7 +274,7 @@ events_clean["itemid"].drop_duplicates().isin(
 
 # %%
 events_clean.to_csv(
-    "../data/events_clean.csv",
+    "data/events_clean.csv",
     index=False
 )
 
@@ -346,7 +346,7 @@ category_changes[
 
 # %%
 category_changes.to_csv(
-    "../data/category_changes.csv",
+    "data/category_changes.csv",
     index=False
 )
 
@@ -421,7 +421,7 @@ transaction_available = pd.merge_asof(
 
 # %%
 available_changes.to_csv(
-    "../data/available_changes.csv",
+    "data/available_changes.csv",
     index=False
 )
 
